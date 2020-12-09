@@ -1,0 +1,20 @@
+{{- $lb := .Values.loadBalancer }}
+{{- if $lb.enabled }}
+{{- range untilStep 0 (.Values.replicaCount|int) 1 }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: redpanda-{{ . }}
+spec:
+  externalTrafficPolicy: Local
+  ports:
+    - name: kafka
+      protocol: TCP
+      port: 9092
+      targetPort: 9092
+  selector:
+    statefulset.kubernetes.io/pod-name: redpanda-{{ . }}
+  type: LoadBalancer
+---
+{{- end }}
+{{- end }}

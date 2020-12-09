@@ -17,6 +17,10 @@ image:
   # The imagePullPolicy will default to Always when the tag is 'latest'
   tag: latest
 
+# Sets up LoadBalancer Service
+loadBalancer:
+  enabled: false
+
 config:
   config_file: /etc/redpanda/redpanda.yaml
   license_key: ""
