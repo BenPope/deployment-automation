@@ -124,3 +124,10 @@ pdb:
   enabled: true
   maxUnavailable: 1
   minAvailable:
+
+volumeClaimTemplateSpec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: 1Gi

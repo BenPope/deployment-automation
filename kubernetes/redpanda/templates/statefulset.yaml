@@ -42,6 +42,8 @@ spec:
               mountPath: /tmp/base-config 
             - name: config
               mountPath: /tmp/config
+            - name: data
+              mountPath: /var/lib/redpanda/data
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       containers:
@@ -63,6 +65,8 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /tmp/config
+            - name: data
+              mountPath: /var/lib/redpanda/data
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -77,3 +81,8 @@ spec:
         {{- toYaml .Values.nodeSelector | nindent 8 }}
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      {{- toYaml .Values.volumeClaimTemplateSpec | nindent 6 }}
